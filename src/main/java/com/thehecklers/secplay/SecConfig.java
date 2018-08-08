@@ -5,12 +5,13 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 
 @EnableWebSecurity
 public class SecConfig extends WebSecurityConfigurerAdapter {
-    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(4);
+    //private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(4);   // MAH: BCrypt is a good, self-contained option
+    private PasswordEncoder passwordEncoder = new SCryptPasswordEncoder();      // SCrypt requires Bouncy Castle dep in pom
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
